@@ -1,17 +1,22 @@
 import { handleDelete, addToQueue, saveData } from './public/dataManager';
-import { dragSticky } from './stickies';
+import { dragSticky, showAndHideStickies } from './stickies';
 
 const app = document.getElementById('app');
 // register even
 app.addEventListener('click', (e) => {
   // register event handlers.
-
+  console.log('click');
   if (e.target.classList.contains('delete-btn')) {
     handleDelete(e);
   }
-  if (e.target.classList.contains('card-header')) {
-    dragSticky(e);
-  }
+});
+app.addEventListener('dblclick', (e) => {
+  if (e.target.classList.contains('dock-icons')) showAndHideStickies(e);
+});
+
+app.addEventListener('contextmenu', async (e) => {
+  e.preventDefault();
+  console.log('contextmenu');
 });
 
 // app.addEventListener('contextmenu', (e) => {
@@ -27,3 +32,11 @@ app.addEventListener('click', (e) => {
 //   event.stopPropagation();
 //   console.log('mouseup triggered by:', e.target);
 // });
+app.addEventListener('mousedown', (e) => {
+  // register event handlers.
+  console.log('mousedown');
+
+  if (e.target.classList.contains('card-header')) {
+    dragSticky(e);
+  }
+});
