@@ -1,15 +1,17 @@
 .resizable {
-  background: white;
-  overflow: hidden;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  border-radius: 5px;
+  /* overflow: hidden; */
 }
 .resizable {
   width: 100%;
   height: 100%;
+  border-radius: 5px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.resizers {
+  inset: 0;
 }
 .resizer {
   width: 10px;
@@ -37,27 +39,38 @@
   bottom: -5px;
   cursor: nwse-resize;
 }
-.test {
-  width: 400px;
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-}
-.test-header {
-  height: 1re2rem;
-  color: black;
-  background-color: aquamarine;
-}
-.test-content {
-  height: 100%;
-  color: black;
-  background-color: rgb(219, 255, 127);
-}
-.app-content {
-  height: 100%;
-  display: flex;
-}
-.sticky-textarea {
-  height: 100%;
+
+/* Horizontal resizers (top and bottom) */
+.resizer.top,
+.resizer.bottom {
+  height: 10px;
   width: 100%;
+  position: absolute;
+  left: 0;
+  cursor: ns-resize;
+}
+
+.resizer.top {
+  top: -5px;
+}
+.resizer.bottom {
+  bottom: -5px;
+}
+
+/* Vertical resizers (left and right) */
+.resizer.left,
+.resizer.right {
+  width: 10px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  cursor: ew-resize;
+}
+
+.resizer.left {
+  left: -5px;
+}
+
+.resizer.right {
+  right: -5px;
 }

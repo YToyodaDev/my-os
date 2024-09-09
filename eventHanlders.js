@@ -1,10 +1,14 @@
 import { createSticky } from './api/apiStickies';
-import { addStickyToDom } from './stickies';
+import {
+  addStickyToDom,
+  autoGrow,
+  dragAndDropSticky,
+  handleSaveSticky,
+} from './stickies';
 import { handleDelete, addToQueue, saveData } from './public/dataManager';
-import { resizeWindow } from './resizer';
+import { handleResizeWindow, handleDragWindow } from './windowActions';
 import {
   changeColor,
-  dragSticky,
   resizeSticky,
   showAndHideStickies,
   zIndexManager,
@@ -14,7 +18,7 @@ const app = document.getElementById('app');
 // register even
 app.addEventListener('click', (e) => {
   // register event handlers.
-  console.log('click');
+
   console.log(e.target);
   if (e.target.closest('.card')) {
     zIndexManager(e);
@@ -42,14 +46,29 @@ app.addEventListener('contextmenu', async (e) => {
 });
 
 app.addEventListener('mousedown', (e) => {
-  // register event handlers.
-  console.log('mousedown');
-
   if (e.target.classList.contains('card-header')) {
-    dragSticky(e);
+    dragAndDropSticky(e);
   }
+
+  if (e.target.closest('.movable-header')) {
+    handleDragWindow(e);
+  }
+
   if (e.target.classList.contains('resizer')) {
-    console.log('resizer');
-    resizeSticky(e);
+    if (e.target.closest('.card')) {
+      resizeSticky(e);
+    } else {
+      handleResizeWindow(e);
+    }
+  }
+});
+app.addEventListener('keyup', (e) => {
+  if (e.target.closest('.card')) {
+    handleSaveSticky(e);
+  }
+});
+app.addEventListener('input', (e) => {
+  if (e.target.closest('.card')) {
+    autoGrow(e);
   }
 });
