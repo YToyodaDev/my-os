@@ -1,6 +1,7 @@
 import { addToQueue } from './public/dataManager';
 import { getCenterCoordinates } from './domUtils';
 import { resizeWindow } from './resizer';
+import colors from './utils/colors.json';
 
 const APP_ID = 'unique-uuid';
 const MINIMUM_WIDTH = 200;
@@ -86,10 +87,12 @@ async function showAndHideStickies(e) {
   minimized = !minimized; // Toggle the minimized state
 }
 
-function zIndexManager(selected) {
+function zIndexManager(e) {
+  const selected = e.target.closest('.card');
   if (selected !== prevSelected) {
     selected.style.zIndex = ++currentZIndex;
     prevSelected = selected;
+    console.log(prevSelected);
   }
 }
 // let startPosX, startPosY, newPosX, newPosY;
@@ -112,7 +115,7 @@ function dragSticky(e) {
   let selected = e.target.closest('.card');
   if (!selected) return;
 
-  zIndexManager(selected);
+  zIndexManager(e);
 
   // Add mousemove and mouseup event listeners
   document.addEventListener('mousemove', mouseMove);
@@ -153,11 +156,51 @@ function dragSticky(e) {
   }
 }
 
+async function changeColor(e) {
+  const colorId = e.target.id;
+  const colorSettings = colors.find((color) => color.id === colorId);
+
+  try {
+    //Need to update the backend and re-render element
+    console.log(prevSelected);
+    const head = prevSelected.querySelector('.card-header');
+    const body = prevSelected.querySelector('.card-body');
+
+    head.style.backgroundColor = colorSettings.colorHeader;
+    body.style.backgroundColor = colorSettings.colorBody;
+    const id = prevSelected.dataset.id;
+    addToQueue(id, 'colors', colorSettings);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function addStickyToDom(item) {
+  const newSticky = generateSticky(item);
+
+  app.insertAdjacentHTML('beforeend', newSticky);
+
+  const textArea = document.querySelector(
+    `.card-body textarea[data-id="${item.$id}"]`
+  );
+  textArea.addEventListener('input', autoGrow);
+  textArea.addEventListener('keyup', () => {
+    addToQueue(textArea.dataset.id, 'body', textArea.value);
+  });
+  autoGrow.call(textArea);
+}
+
+function autoGrow() {
+  this.style.height = 'auto'; // Reset the height
+  this.style.height = this.scrollHeight + 'px'; // Set the new height
+}
+
 export {
   generateSticky,
   dragSticky,
   resizeSticky,
   showAndHideStickies,
   zIndexManager,
+  changeColor,
   prevSelected,
 };

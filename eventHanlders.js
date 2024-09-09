@@ -1,8 +1,9 @@
 import { createSticky } from './api/apiStickies';
-import { addStickyToDom } from './main';
+import { addStickyToDom } from './stickies';
 import { handleDelete, addToQueue, saveData } from './public/dataManager';
 import { resizeWindow } from './resizer';
 import {
+  changeColor,
   dragSticky,
   resizeSticky,
   showAndHideStickies,
@@ -14,13 +15,16 @@ const app = document.getElementById('app');
 app.addEventListener('click', (e) => {
   // register event handlers.
   console.log('click');
+  console.log(e.target);
   if (e.target.closest('.card')) {
-    zIndexManager(e.target.closest('.card'));
+    zIndexManager(e);
   }
   if (e.target.classList.contains('delete-btn')) {
     handleDelete(e);
   }
-  if (e.target.classList.contains('delete-btn')) {
+
+  if (e.target.classList.contains('color-picker')) {
+    changeColor(e);
   }
 });
 

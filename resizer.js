@@ -1,5 +1,3 @@
-let lastSize = {};
-
 export function resizeWindow(e, { minWidth = 0, minHeight = 0 } = {}) {
   e.preventDefault();
   return new Promise((resolve) => {
@@ -66,7 +64,7 @@ export function resizeWindow(e, { minWidth = 0, minHeight = 0 } = {}) {
 
     function stopResize() {
       window.removeEventListener('mousemove', resize);
-      lastSize = {
+      const lastSize = {
         width: element.style.width.replace('px', ''),
         height: element.style.height.replace('px', ''),
       };
