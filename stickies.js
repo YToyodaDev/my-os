@@ -1,4 +1,11 @@
+import { addToQueue } from './public/dataManager';
+import { getCenterCoordinates } from './domUtils';
+import { resizeWindow } from './resizer';
+
 const APP_ID = 'unique-uuid';
+const MINIMUM_WIDTH = 200;
+const MINIMUM_HEIGHT = 100;
+
 let minimized = false; // Track if the cards are minimized
 const originalStyles = new Map();
 
@@ -6,13 +13,16 @@ let newPosX = 0,
   newPosY = 0,
   startPosX = 0,
   startPosY = 0;
-export let selected = null;
+var prevSelected = null;
+let currentZIndex = 1000; // Starting point for z-index values
 
 function generateSticky(item) {
   item.body = JSON.parse(item.body);
   item.colors = JSON.parse(item.colors);
   item.position = JSON.parse(item.position);
   item.size = JSON.parse(item.size);
+  item.size.width = Math.max(item.size.width, MINIMUM_WIDTH);
+  item.size.height = Math.max(item.size.height, MINIMUM_HEIGHT);
 
   const element = `<div  class="card resizable" data-appId=${APP_ID} style="left:${item.position.x}px;top:${item.position.y}px; width: ${item.size.width}px; height: ${item.size.height}px;" data-id=${item.$id}>
     <div class="resizers"  data-id=${item.$id}>
@@ -31,21 +41,8 @@ function generateSticky(item) {
   return element;
 }
 
-function contextMenu() {
-  // var menu = document.getElementById('custom-menu');
-  // // Toggle the display of the menu
-  // if (menu.style.display === 'none' || menu.style.display === '') {
-  //   menu.style.display = 'flex';
-  // } else {
-  //   menu.style.display = 'none';
-  // }
-}
+function showAndHideContextMenu() {}
 // eventHandlers
-function resizeSticky() {}
-
-function dragSticky() {
-  console.log('dragSticky called');
-}
 
 async function showAndHideStickies(e) {
   const dockIcon = e.target;
@@ -75,6 +72,7 @@ async function showAndHideStickies(e) {
     } else {
       // Restore cards
       const states = originalStyles.get(card);
+
       if (states && states.length) {
         const lastState = states.pop(); // Get the last saved state
         card.style.transform = lastState.transform || '';
@@ -88,12 +86,78 @@ async function showAndHideStickies(e) {
   minimized = !minimized; // Toggle the minimized state
 }
 
-// get the center coordinates of the element.
-function getCenterCoordinates(element) {
-  const rect = element.getBoundingClientRect();
-  const left = rect.left + rect.width / 2;
-  const top = rect.top + rect.height / 2;
-  return { left, top };
+function zIndexManager(selected) {
+  if (selected !== prevSelected) {
+    selected.style.zIndex = ++currentZIndex;
+    prevSelected = selected;
+  }
+}
+// let startPosX, startPosY, newPosX, newPosY;
+async function resizeSticky(e) {
+  const { id, lastSize } = await resizeWindow(e, {
+    minWidth: MINIMUM_WIDTH,
+    minHeight: MINIMUM_HEIGHT,
+  });
+  addToQueue(id, 'size', lastSize);
+}
+function dragSticky(e) {
+  e.preventDefault();
+  console.log('dragSticky called');
+
+  // Get initial mouse position
+  startPosX = e.clientX;
+  startPosY = e.clientY;
+
+  // Find the card that was clicked
+  let selected = e.target.closest('.card');
+  if (!selected) return;
+
+  zIndexManager(selected);
+
+  // Add mousemove and mouseup event listeners
+  document.addEventListener('mousemove', mouseMove);
+  document.addEventListener('mouseup', mouseUp);
+
+  // Mouse move handler
+  function mouseMove(e) {
+    console.log('mousemove called');
+
+    // Calculate new positions based on movement
+    newPosX = startPosX - e.clientX;
+    newPosY = startPosY - e.clientY;
+
+    // Update starting positions for the next move event
+    startPosX = e.clientX;
+    startPosY = e.clientY;
+
+    // Set the new position of the card
+    selected.style.top = `${selected.offsetTop - newPosY}px`;
+    selected.style.left = `${selected.offsetLeft - newPosX}px`;
+  }
+
+  // Mouse up handler (end dragging)
+  function mouseUp(e) {
+    console.log('mouse up called');
+
+    // Store the last position of the card
+    const id = selected.dataset.id;
+    const lastPosition = {
+      x: selected.style.left.replace('px', ''),
+      y: selected.style.top.replace('px', ''),
+    };
+    addToQueue(id, 'position', lastPosition);
+
+    // Remove the event listeners
+    document.removeEventListener('mousemove', mouseMove);
+    document.removeEventListener('mouseup', mouseUp);
+  }
 }
 
-export { generateSticky, dragSticky, resizeSticky, showAndHideStickies };
+export {
+  generateSticky,
+  dragSticky,
+  resizeSticky,
+  showAndHideStickies,
+  zIndexManager,
+  prevSelected,
+};
