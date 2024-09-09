@@ -1,6 +1,6 @@
 const LIMIT_TOP = 30;
-const LIMIT_SIDE = 30;
-const LIMIT_BOTTOM = 30;
+const LIMIT_SIDE = 20;
+const LIMIT_BOTTOM = 20;
 
 let startPosX = 0,
   startPosY = 0;
@@ -106,7 +106,6 @@ function handleDragWindow(e) {
     // Get initial mouse position
     let startPosX = e.clientX;
     let startPosY = e.clientY;
-
     // Find the card that was clicked
     let selected = e.target.closest('.movable');
     if (!selected) return;
@@ -126,13 +125,23 @@ function handleDragWindow(e) {
       // Update starting positions for the next move event
       startPosX = e.clientX;
       startPosY = e.clientY;
-
-      // Set the new position of the card
+      const innerHeight = window.innerHeight;
+      // Set the new pinnerHeightsition of the card
       const newTop = selected.offsetTop - dy;
-      selected.style.left = `${selected.offsetLeft - dx}px`;
-      newTop > LIMIT_TOP
-        ? (selected.style.top = newTop + 'px')
-        : (selected.style.top = LIMIT_TOP + 'px');
+      const newLeft = selected.offsetLeft - dx;
+      console.log(innerHeight, newTop);
+      if (newTop < window.innerHeight - LIMIT_BOTTOM)
+        newTop > LIMIT_TOP
+          ? (selected.style.top = newTop + 'px')
+          : (selected.style.top = LIMIT_TOP + 'px');
+
+      if (newLeft < 0)
+        newLeft + selected.offsetWidth > LIMIT_SIDE &&
+          (selected.style.left = newLeft + 'px');
+      else
+        newLeft < window.innerWidth - LIMIT_SIDE
+          ? (selected.style.left = newLeft + 'px')
+          : (selected.style.left = window.innerWidth - LIMIT_SIDE + 'px');
     }
 
     // Mouse up handler (end dragging)

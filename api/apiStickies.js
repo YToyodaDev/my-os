@@ -1,22 +1,6 @@
 import { db } from '../databases';
 import { v4 as uuidv4 } from 'uuid';
-
-const defaultData = {
-  body: JSON.stringify(''),
-  position: JSON.stringify({
-    x: 10,
-    y: 50,
-  }),
-  size: JSON.stringify({
-    width: 200,
-    height: 200,
-  }),
-  colors: JSON.stringify({
-    colorHeader: '#FFEFBE',
-    colorBody: '#FFF5DF',
-    colorText: '#18181A',
-  }),
-};
+import { defaultStickyData } from '../utils/data';
 
 async function fetchStickies() {
   //1 - Load in data & Add Items
@@ -27,7 +11,7 @@ async function fetchStickies() {
   return data;
 }
 async function createSticky() {
-  const payload = defaultData;
+  const payload = defaultStickyData;
 
   const id = uuidv4();
   const response = await db.notes.create(payload, id);

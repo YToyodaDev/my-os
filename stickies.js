@@ -26,8 +26,15 @@ export async function setupStickyApp() {
     addStickyToDom(i);
   });
 }
-
-export function addStickyToDom(item) {
+async function handleAddSticky(e) {
+  e.preventDefault();
+  console.log('contextmenu');
+  if (e.target.classList.contains('dock-icons')) {
+    const newItem = await createSticky();
+    addStickyToDom(newItem);
+  }
+}
+function addStickyToDom(item) {
   const newSticky = generateSticky(item);
 
   app.insertAdjacentHTML('beforeend', newSticky);
@@ -39,11 +46,6 @@ export function addStickyToDom(item) {
   // autoGrow.call(textArea);
 }
 
-function autoGrow(e) {
-  console.log(e.target);
-  e.target.style.height = 'auto'; // Reset the height
-  e.target.style.height = e.target.scrollHeight + 'px'; // Set the new height
-}
 function handleSaveSticky(e) {
   const card = e.target.closest('.card');
   addToQueue(card.dataset.id, 'body', e.target.value);
@@ -126,7 +128,6 @@ async function showAndHideStickies(e) {
 
 async function zIndexManager(e) {
   const selected = e.target.closest('.card');
-
   selected.style.zIndex = ++currentZIndex;
   prevSelected = selected;
   console.log(prevSelected);
@@ -152,7 +153,6 @@ function changeColor(e) {
   const colorSettings = colors.find((color) => color.id === colorId);
 
   try {
-    //Need to update the backend and re-render element
     console.log(prevSelected);
     const head = prevSelected.querySelector('.card-header');
     const body = prevSelected.querySelector('.card-body');
@@ -167,8 +167,8 @@ function changeColor(e) {
 }
 
 export {
-  autoGrow,
   handleSaveSticky,
+  handleAddSticky,
   generateSticky,
   resizeSticky,
   showAndHideStickies,
