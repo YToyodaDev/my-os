@@ -1,40 +1,63 @@
 .resizable {
   background: white;
-
+  overflow: hidden;
   position: fixed;
-
+  top: 50%;
+  left: 50%;
   border-radius: 5px;
 }
-.resizable .resizers {
+.resizable {
   width: 100%;
   height: 100%;
-
   box-sizing: border-box;
-  overflow: hidden;
 }
-.resizable .resizers .resizer {
+.resizer {
   width: 10px;
   height: 10px;
   position: absolute;
 }
 
-.resizable .resizers .resizer.top-left {
+.resizer.top-left {
   left: -5px;
   top: -5px;
-  cursor: nwse-resize; /*resizer cursor*/
+  cursor: nwse-resize;
 }
-.resizable .resizers .resizer.top-right {
+.resizer.top-right {
   right: -5px;
   top: -5px;
   cursor: nesw-resize;
 }
-.resizable .resizers .resizer.bottom-left {
+.resizer.bottom-left {
   left: -5px;
   bottom: -5px;
   cursor: nesw-resize;
 }
-.resizable .resizers .resizer.bottom-right {
+.resizer.bottom-right {
   right: -5px;
   bottom: -5px;
   cursor: nwse-resize;
+}
+.test {
+  width: 400px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+.test-header {
+  height: 1re2rem;
+  color: black;
+  background-color: aquamarine;
+}
+.test-content {
+  height: 100%;
+  color: black;
+  background-color: rgb(219, 255, 127);
+}
+.app-content {
+  height: 100%;
+  display: flex;
+}
+.sticky-textarea {
+  height: 100%;
+  width: 100%;
 }
