@@ -1,0 +1,27 @@
+.section {
+  margin: 0;
+  height: 100vh;
+  width: 100%;
+  background-image: url(../../public/bg/glass-effect-bg.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Helvetica';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.glassEffectStyles {
+  font-size: 3rem;
+  width: 700px;
+  height: 400px;
+  padding: 10px;
+  border-radius: 20px;
+  /* background: rgba(255, 255, 255, 0.1); */
+  /* box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5); */
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  font-weight: 800;
+}

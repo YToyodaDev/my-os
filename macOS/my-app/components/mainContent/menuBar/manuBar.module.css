@@ -1,0 +1,107 @@
+.wrapper {
+  position: absolute;
+  height: 40px;
+  left: 0;
+  right: 0;
+  top: 100px;
+  background: #ffffff;
+  backdrop-filter: blur(1px);
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #000000;
+}
+
+.wrapper_inner_left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+}
+
+.appleIcon {
+  width: 16px;
+  height: 16px;
+  margin: 0 13px 0 20px;
+  cursor: pointer;
+}
+
+.left_ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  height: 100%;
+}
+.left_ul > li:first-child > span {
+  font-weight: 900;
+  color: red;
+}
+
+.left_ul > li {
+  align-self: center;
+  height: 100%;
+  margin: 0 -3px;
+}
+
+.left_ul > li > span {
+  font-size: 13px;
+  font-weight: bold;
+  padding: 5px 13px;
+  cursor: pointer;
+  /* background-color: aqua; */
+}
+.left_ul > li > span:hover {
+  background-color: rgba(213, 213, 206, 0.5);
+  border-radius: 3px;
+}
+
+.right_ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  height: 100%;
+}
+
+.right_ul > li {
+  height: 100%;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.right_ul > li > img {
+  width: 26px;
+  height: 26px;
+}
+
+.date {
+  margin-left: 5px;
+}
+
+/* Base styles for all menus */
+/* .leftUl {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  } */
+
+/* Primary horizontal menu */
+/* .menuPrimary {
+  } */
+
+/* First level dropdowns */
+/* .menuSubmenu {
+    position: absolute;
+    background-color: #444;
+    top: 100%;
+    left: 0;
+  } */
+
+/* Further nested submenus */
+/* .menuSubmenuNested {
+    position: absolute;
+    background-color: #555;
+    top: 0;
+    left: 100%;
+  } */

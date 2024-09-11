@@ -1,0 +1,14 @@
+{
+  "workbench.editor.customLabels.enabled": true,
+  "workbench.editor.customLabels.patterns": {
+    "**/app/**/page.tsx": "Page: ${dirname}",
+    "**/app/api/**/route.ts": "route: ${dirname}",
+    "**/styles.module.css": "styles.mdl: ${dirname}",
+    "**/styles.css": "styles: ${dirname}"
+  },
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "editor.copyWithSyntaxHighlighting": false,
+  "cSpell.words": ["apos", "SUPABASE"],
+  "prettier.jsxSingleQuote": true
+}

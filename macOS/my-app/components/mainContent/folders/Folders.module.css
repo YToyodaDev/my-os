@@ -1,0 +1,38 @@
+.wrapper {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+}
+
+.folderWrapper {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.folderText {
+  width: 100%;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 10px;
+  display: inline-block;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+  /* overflow-wrap: break-word; */
+}
+.folderTextSpan {
+  display: inline-block;
+  overflow-wrap: anywhere;
+}
+.folderImage {
+  width: 60px;
+  display: inline-block;
+}
+.marginBottom20 {
+  margin-bottom: 20px;
+}

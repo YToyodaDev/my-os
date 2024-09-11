@@ -1,0 +1,20 @@
+.submenuPrimary {
+  position: relative;
+  list-style: none;
+  height: 289.15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 4px;
+}
+.li {
+  display: flex;
+  height: 100%;
+  padding: 0 0.3rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.p {
+  font-size: 13px;
+  cursor: pointer;
+}

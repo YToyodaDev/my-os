@@ -1,0 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fff;
+  list-style: none;
+  font-family: 'Poppins', sans-serif;
+  --accent-color: #fcd200;
+}
+
+.card-container {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background-position: center;
+  background-image: url(../../../public/bg/bg-2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-attachment: fixed; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-container::before {
+  content: '';
+  position: absolute;
+  height: 330px;
+  width: 330px;
+  border-radius: 50%;
+  background: linear-gradient(#08ffe6, #fcd200);
+  transform: translate(-490px, -150px);
+}
+
+.card-container::after {
+  content: '';
+  position: absolute;
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  background: linear-gradient(#fcd200, #fc002e);
+  transform: translate(490px, 170px);
+}
+.card-container .box {
+  height: 86vh;
+  width: 75%;
+  padding: 0, 20px;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 20;
+  position: relative;
+  border-radius: 20px;
+  border: 2px, solid, rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(25px);
+  box-shadow: -15px 17px 17px rgba(10, 10, 10, 0.25);
+}
+.card-container .box nav {
+  height: 7%;
+  width: 95%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px auto;
+  padding: 20px;
+}
+.card-container .box nav ul li {
+  display: inline-block;
+  padding: 0 20px;
+}
+.card-container .box nav ul li a {
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.card-container .box nav ul li a:hover {
+  color: var(--accent-color);
+}
+
+.card-container .ball-1 {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: #04f504;
+  position: absolute;
+  transform: translate(-250px, 200px);
+}
+.card-container .ball-2 {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: #08ffe6;
+  position: absolute;
+  transform: translate(-10px, 200px);
+}
+.card-container .ball-3 {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: #fcd200;
+  position: absolute;
+  transform: translate(150px, 250px);
+}
+
+.card-container .box nav .logo {
+  font-size: 2rem;
+  color: #000;
+  margin-top: 0.8rem;
+  margin-left: 1.2rem;
+}
+
+.card-container .box .contains {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 80%;
+  position: relative;
+  margin-top: 8%;
+  padding-left: 80px;
+}
+.card-container .box .contains .section-1 {
+  position: absolute;
+  margin-top: 70px;
+}
+.card-container .box .contains .section-1 h1 {
+  font-size: 4.5rem;
+}
+.card-container .box .contains .section-1 h3 {
+  font-size: 2.1rem;
+}
+.card-container .box .contains .section-1 p {
+  margin-top: 0.2rem;
+}
+.card-container .box .contains .section-1 .button {
+  margin-top: 2.1rem;
+}
+
+.card-container .box .contains .section-1 .button a {
+  padding: 10px 20px;
+  border: 1px solid #fff;
+}
+.card-container .box .contains .section-1 .button a:hover {
+  background-color: #fff;
+  color: #000;
+}
+.card-container .box .contains .section-2 img {
+  width: 600px;
+  height: auto;
+  transform: translateX(-380);
+}

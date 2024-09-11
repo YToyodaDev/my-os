@@ -1,0 +1,12 @@
+.mw-min {
+  width: min(100% - 40px, 60rem);
+  margin-inline: auto;
+}
+.padding {
+  padding-block: clamp(2rem, 0.1818181818rem + 7.7575757576vw, 6rem);
+}
+.fb-wrapper {
+  display: grid;
+  grid-template-columns: 1fr repeat (12, min(100% - 40px, 60rem)) 1fr;
+  background-color: magenta;
+}
