@@ -98,7 +98,9 @@ export const MultiLevelMenu = ({
   function HandleOnMouseEnter(id: number) {
     if (isActive) setOption(id);
   }
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (isOutsideClicked) console.log('clicked');
+  }, []);
 
   return (
     <StyledUl>

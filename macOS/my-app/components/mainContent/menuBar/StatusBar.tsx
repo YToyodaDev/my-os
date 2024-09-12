@@ -7,11 +7,7 @@ import {
   StatusBarItem,
 } from '@/components/mainContent/utils/data';
 
-type Props = {
-  toggleAppleMenu: (event: React.MouseEvent<HTMLImageElement>) => void;
-};
-
-const StatusBar = ({ toggleAppleMenu }: Props) => {
+const StatusBar = () => {
   return (
     <>
       <div className={styles.wrapper}>

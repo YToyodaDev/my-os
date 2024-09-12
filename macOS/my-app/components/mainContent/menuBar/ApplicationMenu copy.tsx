@@ -33,6 +33,9 @@ const StyledLi = styled.li`
     background-color: #007aff;
     border-radius: 4px;
   }
+  &:hover > span + ul {
+    display: flex;
+  }
 `;
 const StyledSpan = styled.span`
   font-size: 13px;

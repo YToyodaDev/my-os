@@ -12,8 +12,9 @@ const useOutsideClick = (
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
+        console.log('outside clicked');
         handler();
-      }
+      } else console.log('inside the ref element ');
     };
 
     document.addEventListener('mousedown', handleClickOutside);
